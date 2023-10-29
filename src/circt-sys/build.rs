@@ -84,6 +84,7 @@ fn main() {
         "CIRCTSV",
         "CIRCTSeq",
         "CIRCTSupport",
+        "CIRCTSeqTransforms",
         "LLVMBinaryFormat",
         "LLVMBitstreamReader",
         "LLVMCore",
@@ -116,6 +117,10 @@ fn main() {
         "MLIRBytecodeWriter",
         "MLIRAsmParser",
         "MLIRBytecodeReader",
+        "MLIRDebug",
+        "MLIRCAPIDebug",
+        "MLIRPDLInterpDialect",
+        "MLIRPDLDialect",
     ];
     for name in &lib_names {
         println!("cargo:rustc-link-lib=static={}", name);
