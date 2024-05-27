@@ -2,6 +2,7 @@
 
 //! Arena to allocate HIR nodes into.
 
+use crate::hir::obj_decl::ConstDecl;
 use crate::hir::*;
 use crate::scope2::ScopeData;
 

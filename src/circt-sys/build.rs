@@ -1,7 +1,7 @@
 // Copyright (c) 2016-2021 Fabian Schuiki
 
 use std::{
-    env,
+    env::{self, current_dir},
     ffi::OsStr,
     path::{Path, PathBuf},
     process::Command,
@@ -44,7 +44,17 @@ fn main() {
     println!("cargo:rerun-if-env-changed={}", &*ENV_LLVM_DIR);
     println!("cargo:rerun-if-env-changed={}", &*ENV_LLVM_BUILD_DIR);
 
-    let circt_dir = PathBuf::from(env::var(ENV_CIRCT_DIR).unwrap());
+    let circt_dir = env::var(ENV_CIRCT_DIR)
+        .map(PathBuf::from)
+        .unwrap_or_else(|_| {
+            current_dir()
+                .unwrap()
+                .parent()
+                .unwrap()
+                .parent()
+                .unwrap()
+                .join("circt")
+        });
     let circt_build_dir = env::var(ENV_CIRCT_BUILD_DIR)
         .map(PathBuf::from)
         .unwrap_or_else(|_| circt_dir.join("build"));
@@ -99,9 +109,11 @@ fn main() {
         "MLIRCAPIIR",
         "MLIRCAPIControlFlow",
         "MLIRCallInterfaces",
+        "MLIRCastInterfaces",
         "MLIRControlFlowDialect",
         "MLIRControlFlowInterfaces",
         "MLIRFuncDialect",
+        "MLIRFunctionInterfaces",
         "MLIRIR",
         "MLIRInferTypeOpInterface",
         "MLIRInferIntRangeCommon",
@@ -121,6 +133,8 @@ fn main() {
         "MLIRCAPIDebug",
         "MLIRPDLInterpDialect",
         "MLIRPDLDialect",
+        "MLIRUBDialect",
+        "tinfo",
     ];
     for name in &lib_names {
         println!("cargo:rustc-link-lib=static={}", name);
