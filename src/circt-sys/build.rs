@@ -113,7 +113,6 @@ fn main() {
         "MLIRControlFlowDialect",
         "MLIRControlFlowInterfaces",
         "MLIRFuncDialect",
-        "MLIRFunctionInterfaces",
         "MLIRIR",
         "MLIRInferTypeOpInterface",
         "MLIRInferIntRangeCommon",
@@ -133,7 +132,6 @@ fn main() {
         "MLIRCAPIDebug",
         "MLIRPDLInterpDialect",
         "MLIRPDLDialect",
-        "MLIRUBDialect",
         "tinfo",
     ];
     for name in &lib_names {
