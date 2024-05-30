@@ -1363,6 +1363,10 @@ pub(crate) fn materialize_scope<'a>(cx: &impl Context<'a>, node: &'a dyn ScopedN
     debug!("Materializing scope {:?}", node);
     let scope = cx.generated_scope(node);
     for &subscope in &scope.subscopes {
+        if subscope.as_ptr() == node.as_ptr() {
+            warn!("cycle detected in materialize_scope");
+            continue;
+        }
         materialize_scope(cx, subscope);
     }
 }
